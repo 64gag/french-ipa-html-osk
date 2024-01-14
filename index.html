@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grouped IPA Keyboard for French</title>
+    <style>
+        .keyboard-container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .keyboard-group {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-gap: 10px;
+            margin-bottom: 20px;
+        }
+        .key {
+            padding: 10px;
+            text-align: center;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+        .group-title {
+            grid-column: 1 / -1;
+            background-color: #d0e0f0;
+            text-align: center;
+            padding: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+        .text-field {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            font-size: 16px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="keyboard" class="keyboard-container">
+        <input type="text" id="inputField" class="text-field" placeholder="Type here...">
+    </div>
+
+    <script>
+        // List of IPA characters grouped
+        const ipaGroups = {
+            'Les consonnes': [
+                'b',
+                'd',
+                'f',
+                'ɡ',
+                'k',
+                'l',
+                'm',
+                'n',
+                'ŋ',
+                'ɲ',
+                'p',
+                'ʁ',
+                's',
+                'ʃ',
+                't',
+                'v',
+                'z',
+                'ʒ',
+            ],
+            'Les semi-voyelles': [
+                'j',
+                'w',
+                'ɥ',
+            ],
+            'Les voyelles nasales': [
+                'ɑ̃',
+                'ɛ̃',
+                'œ̃',
+                'ɔ̃',
+            ],
+            'Les voyelles': [
+                'a',
+                'ɑ',
+                'ə',
+                'e',
+                'ɛ',
+                'i',
+                'œ',
+                'ø',
+                'o',
+                'ɔ',
+                'u',
+                'y',
+            ],
+        };
+
+        const inputField = document.getElementById("inputField");
+        const keyboard = document.getElementById("keyboard");
+
+        // Function to append character to input field
+        function appendCharacter(character) {
+            inputField.value += character;
+        }
+
+        for (let group in ipaGroups) {
+            let groupDiv = document.createElement("div");
+            groupDiv.classList.add("keyboard-group");
+
+            let title = document.createElement("div");
+            title.classList.add("group-title");
+            title.textContent = group;
+            groupDiv.appendChild(title);
+
+            ipaGroups[group].forEach(char => {
+                let button = document.createElement("button");
+                button.innerText = char;
+                button.classList.add("key");
+                button.onclick = function() { appendCharacter(char); };
+                groupDiv.appendChild(button);
+            });
+
+            keyboard.appendChild(groupDiv);
+        }
+    </script>
+</body>
+</html>
